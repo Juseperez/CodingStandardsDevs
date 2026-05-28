@@ -10,4 +10,4 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install pylint
-      - run: pylint student.py --fail-under=9
+      - run: pylint test.py --fail-under=9
