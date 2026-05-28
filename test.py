@@ -1,3 +1,13 @@
+"""
+Student Grade Management System.
+
+This module defines the Student class used to manage
+student grades, calculate averages, determine pass/fail
+status, honor roll eligibility, and generate report cards.
+
+It also includes a demonstration function showing how
+the system works.
+"""
 class Student:
     """Represents a student with a name, ID, and a list of numeric grades."""
 
@@ -19,6 +29,16 @@ class Student:
         self.is_on_honor_roll: bool = False
 
     def add_grade(self, grade: float) -> None:
+        """
+        Add a grade to the student's record.
+
+        Args:
+            grade (float): Numeric grade to add.
+
+        Raises:
+            TypeError: If grade is not numeric.
+            ValueError: If grade is outside the valid range.
+        """
         if not isinstance(grade, (int, float)):
             raise TypeError(
                 f"Grade must be a number, got {type(grade).__name__!r}."
@@ -32,6 +52,12 @@ class Student:
         self.grades.append(grade)
 
     def remove_grade_by_index(self, index: int) -> None:
+        """
+        Remove a grade using its list index.
+
+        Args:
+            index (int): Position of the grade in the list.
+        """
         if not self.grades:
             print("No grades to remove.")
             return
@@ -45,6 +71,12 @@ class Student:
         print(f"Grade {removed} removed successfully.")
 
     def remove_grade_by_value(self, value: float) -> None:
+        """
+        Remove the first occurrence of a specific grade value.
+
+        Args:
+            value (float): Grade value to remove.
+        """
         if value in self.grades:
             self.grades.remove(value)
             print(f"Grade {value} removed successfully.")
@@ -52,11 +84,23 @@ class Student:
             print(f"Grade {value} not found in the student's records.")
 
     def calculate_average(self) -> float:
+        """
+        Calculate the student's average grade.
+
+        Returns:
+            float: Average of all grades, or 0.0 if no grades exist.
+        """
         if not self.grades:
             return 0.0
         return sum(self.grades) / len(self.grades)
 
     def get_letter_grade(self) -> str:
+        """
+        Convert the average grade into a letter grade.
+
+        Returns:
+            str: Letter grade (A, B, C, D, or F).
+        """
         average = self.calculate_average()
         if average >= 90:
             return "A"
@@ -69,12 +113,24 @@ class Student:
         return "F"
 
     def check_pass_fail(self) -> None:
+        """
+        Determine whether the student passed based on average grade.
+        """
         self.is_passed = self.calculate_average() >= self.PASS_THRESHOLD
 
     def check_honor_roll(self) -> None:
+        """
+        Determine whether the student qualifies for the honor roll.
+        """
         self.is_on_honor_roll = self.calculate_average() >= self.HONOR_THRESHOLD
 
     def generate_report(self) -> str:
+        """
+        Generate a formatted student report card.
+
+        Returns:
+            str: Multi-line formatted report string.
+        """
         self.check_pass_fail()
         self.check_honor_roll()
 
@@ -105,6 +161,9 @@ class Student:
 
 
 def run_demo() -> None:
+    """
+    Run a demonstration of the Student Grade Management System.
+    """
 
     print("=" * 50)
     print("  Student Grade Management System – Demo")
@@ -158,4 +217,3 @@ def run_demo() -> None:
 
 if __name__ == "__main__":
     run_demo()
-    
